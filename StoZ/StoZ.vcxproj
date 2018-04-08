@@ -105,6 +105,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\Autry\Source\Repos\RfToolbox\RfToolLibrary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -161,7 +162,7 @@
     <ClCompile Include="StoZ.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\touchstoneparse\touchstoneparse.vcxproj">
+    <ProjectReference Include="..\RfToolLibrary\RfToolLibrary.vcxproj">
       <Project>{e66c9beb-be7a-4db7-a0ba-62e29c4e99a8}</Project>
     </ProjectReference>
   </ItemGroup>
