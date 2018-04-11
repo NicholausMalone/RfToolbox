@@ -37,46 +37,48 @@ class RfTools
 public:
 	RfTools();
 	~RfTools();
-	/////! can load s1p and s2p files
-	//static RF_TOOLS_API sparamobj Load2P(const char* filename);
+	///! can load s1p and s2p files
+	static RF_TOOLS_API ParameterObject Load2P(const char* filename);
 
 	/////! can load s3p files
-	//static RF_TOOLS_API sparamobj Load3P(const char* filename);
+	//static RF_TOOLS_API ParameterObject Load3P(const char* filename);
 
 	///! can load s4p files
-	static RF_TOOLS_API sparamobj Load4P(const char* filename);
+	static RF_TOOLS_API ParameterObject Load4P(const char* filename);
 
 	///! can load s4p files
 	///! Converts a complex impedance into an S-parameter (normalized to 1)
-	static RF_TOOLS_API ParamMatrix ZtoS(ParamMatrix Z);
+	static RF_TOOLS_API ParamMatrix ZtoS(ParamMatrix& Z);
 
 	///! Converts an S-parameter int a complex impedance
-	static RF_TOOLS_API ParamMatrix StoZ(ParamMatrix S);
-
-	///! Degrees to radians and vise versa
-	static RF_TOOLS_API double RadtoDeg(double rad);
-	static RF_TOOLS_API double DegtoRad(double deg);
+	static RF_TOOLS_API ParamMatrix StoZ(ParamMatrix& S);
 
 	///! Converts Single Ended to Mixed-Mode Parameters
-	static RF_TOOLS_API ParamMatrix SEtoMM(ParamMatrix S);
+	static RF_TOOLS_API void SEtoMM(ParamMatrix& params, PortPairing p = OneThree);
 
 	///! Converts Mixed-Mode to Single Ended Parameters
-	static RF_TOOLS_API ParamMatrix MMtoSE(ParamMatrix S);
+	static RF_TOOLS_API void MMtoSE(ParamMatrix& params, PortPairing p = OneThree);
+
+	///! Converts Single Ended to Mixed-Mode Parameters
+	static RF_TOOLS_API void SEtoMM(vector<ParamMatrix>& params, PortPairing p = OneThree);
+
+	///! Converts Mixed-Mode to Single Ended Parameters
+	static RF_TOOLS_API void MMtoSE(vector<ParamMatrix>& params, PortPairing p = OneThree);
 
 	///! Saves s1p, s2p, s3p and s4p SnP files.
-	static RF_TOOLS_API bool SaveSnPFile(sparamobj& spar, const char* filename, const char parameterType = 'S');
+	static RF_TOOLS_API bool SaveSnPFile(ParameterObject& spar, const char* filename, ParamType parameterType = S);
 
 	///! Saves s1p, s2p, s3p and s4p CSV files.
-	static RF_TOOLS_API bool SaveCSVFile(sparamobj& spar, const char* filename, const char parameterType = 'S');
+	static RF_TOOLS_API bool SaveCSVFile(ParameterObject& spar, const char* filename, ParamType parameterType = S);
 
 	///! Writes s1p, s2p, s3p and s4p SnP files to stream.
-	static RF_TOOLS_API void WriteSnPFile(sparamobj& spar, ostream& stream, const char parameterType = 'S');
+	static RF_TOOLS_API void WriteSnPFile(ParameterObject& spar, ostream& stream, ParamType parameterType = S);
 
 	///! Writes s1p, s2p, s3p and s4p CSV files to stream.
-	static RF_TOOLS_API void WriteCSVFile(sparamobj& spar, ostream& stream, bool includeHeader = true, const char parameterType = 'S');
+	static RF_TOOLS_API void WriteCSVFile(ParameterObject& spar, ostream& stream, ParamType parameterType = S);
 
 	///! Writes s1p, s2p, s3p and s4p CSV files to stream.
-	static RF_TOOLS_API void SaveCSVFileIfft(sparamobj& spar, const char* filename);
+	static RF_TOOLS_API void SaveCSVFileIfft(ParameterObject& spar, const char* filename);
 
 	///! Get files in directory.  extType is the type of extension ex. csv, s4p
 	static RF_TOOLS_API vector<string> GetFilesInDir(const string &dirPath, const char* extType);

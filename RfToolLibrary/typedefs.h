@@ -35,12 +35,17 @@ typedef Array<dcomplex, Eigen::Dynamic, Eigen::Dynamic, 0, 4, 4> ParamMatrix;
 ///! Contains the S-parameter matrix and the frequency range
 typedef  struct {
 	double Z0;
+	SFormat sFormat;
+	ParamType paramType;
+	bool isMixedMode;
 	vector<ParamMatrix> S;
 	vector<double> f;
-}	sparamobj;
+}	ParameterObject;
 
 ///! Amplitude can be in dBm, W or mW
 typedef enum { GHz, MHz, KHz, Hz }FUnit;
-typedef enum { DB, MA, RI }SFormat;
+typedef enum { DB, MA, RI } SFormat;
+typedef enum { OneThree, OneTwo } PortPairing;
+typedef enum { S, Z, Y, T } ParamType;
 
 #endif //TYPEDEFS_H
