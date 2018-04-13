@@ -32,20 +32,27 @@ using Eigen::dcomplex;
 // Maximum size is 4x4 matrix, helps with dynamic memory allocation
 typedef Array<dcomplex, Eigen::Dynamic, Eigen::Dynamic, 0, 4, 4> ParamMatrix;
 
-///! Contains the S-parameter matrix and the frequency range
-typedef  struct {
-	double Z0;
-	SFormat sFormat;
-	ParamType paramType;
-	bool isMixedMode;
-	vector<ParamMatrix> S;
-	vector<double> f;
-}	ParameterObject;
-
 ///! Amplitude can be in dBm, W or mW
 typedef enum { GHz, MHz, KHz, Hz }FUnit;
 typedef enum { DB, MA, RI } SFormat;
 typedef enum { OneThree, OneTwo } PortPairing;
 typedef enum { S, Z, Y, T } ParamType;
+
+struct SplineSet {
+	double a;
+	double b;
+	double c;
+	double d;
+	double x;
+};
+
+///! Contains the S-parameter matrix and the frequency range
+typedef  struct {
+	double Z0;
+	ParamType paramType;
+	bool isMixedMode;
+	vector<ParamMatrix> S;
+	vector<double> f;
+}	ParameterObject;
 
 #endif //TYPEDEFS_H

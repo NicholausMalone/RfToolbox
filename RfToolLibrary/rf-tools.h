@@ -37,6 +37,13 @@ class RfTools
 public:
 	RfTools();
 	~RfTools();
+
+
+
+	static RF_TOOLS_API void Embed(ParamMatrix& RX, ParamMatrix& TX, ParamMatrix paramsToEmbed);
+
+	static RF_TOOLS_API void Deembed(ParamMatrix& RX, ParamMatrix& TX, ParamMatrix paramsToDeembed);
+
 	///! can load s1p and s2p files
 	static RF_TOOLS_API ParameterObject Load2P(const char* filename);
 
@@ -45,6 +52,9 @@ public:
 
 	///! can load s4p files
 	static RF_TOOLS_API ParameterObject Load4P(const char* filename);
+
+	///! can load s4p files
+	static RF_TOOLS_API ParameterObject LoadCSV(const char* filename);
 
 	///! can load s4p files
 	///! Converts a complex impedance into an S-parameter (normalized to 1)
@@ -65,17 +75,23 @@ public:
 	///! Converts Mixed-Mode to Single Ended Parameters
 	static RF_TOOLS_API void MMtoSE(vector<ParamMatrix>& params, PortPairing p = OneThree);
 
+	///! Converts S to T Parameters
+	static RF_TOOLS_API void StoT(ParamMatrix& params);
+
+	///! Converts T to S Parameters
+	static RF_TOOLS_API void TtoS(ParamMatrix& params);
+
 	///! Saves s1p, s2p, s3p and s4p SnP files.
-	static RF_TOOLS_API bool SaveSnPFile(ParameterObject& spar, const char* filename, ParamType parameterType = S);
+	static RF_TOOLS_API bool SaveSnPFile(ParameterObject& spar, const char* filename, SFormat format = DB);
 
 	///! Saves s1p, s2p, s3p and s4p CSV files.
-	static RF_TOOLS_API bool SaveCSVFile(ParameterObject& spar, const char* filename, ParamType parameterType = S);
+	static RF_TOOLS_API bool SaveCSVFile(ParameterObject& spar, const char* filename, SFormat format = DB);
 
 	///! Writes s1p, s2p, s3p and s4p SnP files to stream.
-	static RF_TOOLS_API void WriteSnPFile(ParameterObject& spar, ostream& stream, ParamType parameterType = S);
+	static RF_TOOLS_API void WriteSnPFile(ParameterObject& spar, ostream& stream, SFormat format = DB);
 
 	///! Writes s1p, s2p, s3p and s4p CSV files to stream.
-	static RF_TOOLS_API void WriteCSVFile(ParameterObject& spar, ostream& stream, ParamType parameterType = S);
+	static RF_TOOLS_API void WriteCSVFile(ParameterObject& spar, ostream& stream, SFormat format = DB);
 
 	///! Writes s1p, s2p, s3p and s4p CSV files to stream.
 	static RF_TOOLS_API void SaveCSVFileIfft(ParameterObject& spar, const char* filename);
@@ -85,6 +101,8 @@ public:
 
 private:
 	static bool iequals(const string& a, const string& b);	
+	vector<SplineSet> spline(vector<double> &x, vector<double> &y);
+	double getY(double x, vector<SplineSet> mySplineSet);
 };
 
 #endif // _RF_TOOLS_H_
